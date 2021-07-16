@@ -1,0 +1,12 @@
+schema {
+  query: Query
+}
+
+type Query {
+  getPersons: [Person]
+}
+
+type Person {
+  id: Long
+  name: String
+}
