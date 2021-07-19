@@ -1,17 +1,23 @@
 package com.example.project;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 
 import javax.persistence.Id;
 
 import javax.persistence.Table;
 
+import io.leangen.graphql.annotations.types.GraphQLType;
+
 @Entity
 @Table
+@GraphQLType
 public class Person {
 
     @Id
+    @Column
     private Long id;
+    @Column
     private String name;
 
     public Person() {
