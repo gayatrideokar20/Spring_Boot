@@ -1,17 +1,20 @@
 package com.example.project;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+
+import java.util.List;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import org.springframework.web.bind.annotation.RestController;
 
+/*
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 import javax.annotation.PostConstruct;
 
@@ -26,6 +29,11 @@ import graphql.schema.idl.RuntimeWiring;
 import graphql.schema.idl.SchemaGenerator;
 import graphql.schema.idl.SchemaParser;
 import graphql.schema.idl.TypeDefinitionRegistry;
+
+import io.leangen.graphql.annotations.GraphQLArgument;
+
+*/
+import io.leangen.graphql.annotations.GraphQLMutation;
 import io.leangen.graphql.annotations.GraphQLQuery;
 import io.leangen.graphql.spqr.spring.annotations.GraphQLApi;
 
@@ -35,6 +43,9 @@ public class PersonController {
 
     @Autowired
     private PersonRepository repository;
+
+    @Autowired
+    private PersonService PersonService;
 
     // @Value("classpath:person.graphqls")
     // private Resource schemaResource;
@@ -68,8 +79,25 @@ public class PersonController {
     }
 
     @GraphQLQuery
-    public List<Person> getAllPersons() {
-        return repository.findAll();
+    public List<Person> getAll() {
+        return PersonService.getAll();
+    }
+
+    @GraphQLQuery
+    public Person getPerson(Integer id) {
+        return PersonService.getPerson(id);
+    }
+
+    @GraphQLMutation
+    public Person updatePerson(Integer id, String name) {
+        return PersonService.updatePerson(id, name);
+
+    }
+
+    @GraphQLMutation
+    public List<Person> deletePerson(Integer id) {
+        return PersonService.deletePerson(id);
+
     }
 
 }
